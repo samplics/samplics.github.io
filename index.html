@@ -1,0 +1,133 @@
+<html>
+    <head>
+        <title>sampli</title>
+        <link rel="stylesheet" type="text/css" href="css/main.css">
+        <link rel="shortcut icon" href="https://cdn.discordapp.com/attachments/744347321860358187/793448303806382110/circle-cropped.png" type="image/png" />
+    </head>
+    <div class='console-container'><span id='text'></span><div class='console-underscore' id='console'>&#95;</div></div>
+    <div class="socials">
+        <a href="https://github.com/samplics" target="_blank"><i class="fab fa-github"></i></a>
+        <a href="https://twitter.com/samplics" target="_blank"><i class="fab fa-twitter"></i></a>
+        <a href="https://discordapp.com/users/529431011138994187" target="_blank"><i class="fab fa-discord"></i></a>
+        <a href="https://open.spotify.com/user/sampli12" target="_blank"><i class="fab fa-spotify"></i></a>
+    </div>
+    <style>
+        @import url(https://fonts.googleapis.com/css?family=Khula:700);
+body {
+  background: #111;
+  overflow: hidden;
+}
+.hidden {
+  opacity:0;
+}
+.console-container {
+ 
+  font-family:Khula;
+  font-size:4em;
+  text-align:center;
+  height:200px;
+  width:800px;
+  display:block;
+  position:absolute;
+  color:white;
+  top:0;
+  bottom:0;
+  left:0;
+  right:0;
+  margin:auto;
+}
+.console-underscore {
+   display:inline-block;
+  position:relative;
+  top:-0.14em;
+  left:10px;
+}
+
+.socials{
+    font-family:Khula;
+    position: absolute;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    width: 30%;
+    bottom:10px;
+    color: #5453A6;
+    margin-left:45vw;
+}
+.socials i {
+    font-size: 30px;
+}
+.socials a{
+    color: #5453A6;
+    text-decoration: none;
+    text-align: center;
+    padding: 5px 5px 5px 5px;
+}
+
+.socials i:hover{
+    color:#9EA9ED;
+    cursor:pointer;
+}
+    </style>
+    <script src="https://kit.fontawesome.com/1d48fe622e.js" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script type="text/javascript">
+        // function([string1, string2],target id,[color1,color2])    
+consoleText(['Hello World.', 'Welcome to my page.', 'I am sampli.', 'check the socials. &'], 'text',['#5453A6','#5453A6','#5453A6','#5453A6']);
+
+function consoleText(words, id, colors) {
+  if (colors === undefined) colors = ['#fff'];
+  var visible = true;
+  var con = document.getElementById('console');
+  var letterCount = 1;
+  var x = 1;
+  var waiting = false;
+  var target = document.getElementById(id)
+  target.setAttribute('style', 'color:' + colors[0])
+  window.setInterval(function() {
+
+    if (letterCount === 0 && waiting === false) {
+      waiting = true;
+      target.innerHTML = words[0].substring(0, letterCount)
+      window.setTimeout(function() {
+        var usedColor = colors.shift();
+        colors.push(usedColor);
+        var usedWord = words.shift();
+        words.push(usedWord);
+        x = 1;
+        target.setAttribute('style', 'color:' + colors[0])
+        letterCount += x;
+        waiting = false;
+      }, 1000)
+    } else if (letterCount === words[0].length + 1 && waiting === false) {
+      waiting = true;
+      window.setTimeout(function() {
+        x = -1;
+        letterCount += x;
+        waiting = false;
+      }, 1000)
+    } else if (waiting === false) {
+        if(words[0].substring(0, letterCount).includes('&')){
+            target.innerHTML = words[0].substring(0, letterCount).replace('&', '&#128521;')
+        } else {
+            target.innerHTML = words[0].substring(0, letterCount)
+        }
+        console.log(target.innerHTML)
+        letterCount += x;
+    }
+  }, 120)
+  window.setInterval(function() {
+    if (visible === true) {
+      con.className = 'console-underscore hidden'
+      visible = false;
+
+    } else {
+      con.className = 'console-underscore'
+
+      visible = true;
+    }
+  }, 400)
+}
+    </script>
+</html>
+
